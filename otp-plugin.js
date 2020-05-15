@@ -2,10 +2,16 @@ InitPlugin = (function () {
     let defaults = {email: 'abc@def.com', phone: '1234567890', channel: 'all'};
     let modal;
     let settings = {};
+    document.addEventListener("DOMContentLoaded", () => {
+        InitPlugin();
+    });
 
-    function InitPlugin(options) {
-        settings = Object.assign(defaults, options)
-        console.log(settings)
+    function InitPlugin() {
+        let pluginSelector = document.querySelector('script[data-id="otp-plugin-script"]');
+        settings['email'] = pluginSelector.getAttribute('data-email')
+        settings['channel'] = pluginSelector.getAttribute('data-channel')
+        settings['phone'] = pluginSelector.getAttribute('data-phone')
+        settings = Object.assign(defaults, settings)
         document.addEventListener('click', eventHandler, false);
     }
 

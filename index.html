@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="otp-plugin-minified.css">
-    <script src="otp-plugin-minified.js"></script>
+    <script src="otp-plugin-minified.js" data-id="otp-plugin-script" data-channel="all" data-email="pqr@xyz.com"
+            data-phone="(+91)1234567890"></script>
     <style>
         .center {
             display: flex;
@@ -42,9 +43,5 @@
 <div class="center">
     <button id="reset-password-btn" class="button button2">Reset Password</button>
 </div>
-<script type="text/javascript">
-    let options = {channel: 'all'}
-    InitPlugin(options);
-</script>
 </body>
 </html>
