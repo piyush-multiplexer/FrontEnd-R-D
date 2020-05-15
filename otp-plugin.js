@@ -1,8 +1,11 @@
-myWrapper = (function () {
-    let defaults = {email: 'abc@def.com', phone: '1234567890',};
+InitPlugin = (function () {
+    let defaults = {email: 'abc@def.com', phone: '1234567890', channel: 'all'};
     let modal;
+    let settings = {};
 
-    function myWrapper(options) {
+    function InitPlugin(options) {
+        settings = Object.assign(defaults, options)
+        console.log(settings)
         document.addEventListener('click', eventHandler, false);
     }
 
@@ -29,35 +32,59 @@ myWrapper = (function () {
         modal.classList.add('modal')
         const otpSelection = document.createElement('div')
         otpSelection.setAttribute("id", "otpSelection");
-        let radio1 = document.createElement('input');
-        let radio2 = document.createElement('input');
-        radio1.type = 'radio';
-        radio2.type = 'radio';
-        radio1.id = 'email';
-        radio2.id = 'phone';
-        radio1.name = 'channel';
-        radio2.name = 'channel';
-        radio1.value = defaults.email
-        radio2.value = defaults.phone
+        let radio1, radio2, label1, label2
+        if (settings.channel === 'all') {
+            radio1 = document.createElement('input');
+            radio2 = document.createElement('input');
+            radio1.type = 'radio';
+            radio2.type = 'radio';
+            radio1.id = 'email';
+            radio2.id = 'phone';
+            radio1.name = 'channel';
+            radio2.name = 'channel';
+            radio1.value = settings.email
+            radio2.value = settings.phone
 
-        let label1 = document.createElement('label')
-        let label2 = document.createElement('label')
-        label1.htmlFor = 'email';
-        label1.innerText = 'Email';
-        label2.htmlFor = 'phone';
-        label2.innerText = 'Phone';
-
+            label1 = document.createElement('label')
+            label2 = document.createElement('label')
+            label1.htmlFor = 'email';
+            label1.innerText = 'Email';
+            label2.htmlFor = 'phone';
+            label2.innerText = 'Phone';
+        } else if (settings.channel === 'email') {
+            radio1 = document.createElement('input');
+            radio1.type = 'radio';
+            radio1.id = 'email';
+            radio1.name = 'channel';
+            radio1.value = settings.email
+            label1 = document.createElement('label')
+            label1.htmlFor = 'email';
+            label1.innerText = 'Email';
+        } else if (settings.channel === 'phone') {
+            radio2 = document.createElement('input');
+            radio2.type = 'radio';
+            radio2.id = 'phone';
+            radio2.name = 'channel';
+            radio2.value = settings.phone
+            label2 = document.createElement('label')
+            label2.htmlFor = 'phone';
+            label2.innerText = 'Phone';
+        }
         let newline = document.createElement('br');
         let nextBtn = document.createElement('button');
         nextBtn.setAttribute('id', 'send-otp-btn')
         nextBtn.setAttribute('class', 'button button2')
         nextBtn.innerText = 'SEND OTP'
-        otpSelection.appendChild(radio1);
-        otpSelection.appendChild(label1);
-        otpSelection.appendChild(newline);
-        otpSelection.appendChild(radio2);
-        otpSelection.appendChild(label2);
-        otpSelection.appendChild(newline);
+        if (settings.channel === 'email' || settings.channel === 'all') {
+            otpSelection.appendChild(radio1);
+            otpSelection.appendChild(label1);
+            otpSelection.appendChild(newline);
+        }
+        if (settings.channel === 'phone' || settings.channel === 'all') {
+            otpSelection.appendChild(radio2);
+            otpSelection.appendChild(label2);
+            otpSelection.appendChild(newline);
+        }
         otpSelection.appendChild(nextBtn)
         modal.appendChild(otpSelection)
         document.body.appendChild(modal)
@@ -66,7 +93,7 @@ myWrapper = (function () {
     function openInputOtpModal() {
         const otpInput = document.createElement('div')
         otpInput.setAttribute("id", "otpInput");
-        let header = document.createElement('h1');
+        let header = document.createElement('h5');
         let selectedRadio = document.querySelector('input[name="channel"]:checked')
         header.innerHTML = `OTP Sent to your ${selectedRadio.id} ${selectedRadio.value}`;
         let textBox = document.createElement('input');
@@ -94,7 +121,7 @@ myWrapper = (function () {
 
     function submitOtpModal() {
         const submitOtp = document.createElement('div')
-        submitOtp.setAttribute("id", "otpInput");
+        submitOtp.setAttribute("id", "otpResult");
         const otp = document.getElementById('otp-value').value
         let header = document.createElement('h1');
         header.setAttribute('id', 'otp-result')
@@ -109,6 +136,6 @@ myWrapper = (function () {
         modal.style.visibility = 'hidden'
     }
 
-    return myWrapper;
+    return InitPlugin;
 })();
 

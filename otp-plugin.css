@@ -6,21 +6,51 @@
     position: absolute;
     background: rgba(0, 0, 0, 0.5);
 }
+
 #otpSelection {
     top: 50%;
     left: 50%;
     width: 500px;
-    height: 500px;
+    height: 125px;
     background: white;
     position: absolute;
+    padding: 24px;
+    font-size: x-large;
     transform: translate(-50%, -50%);
 }
-#otpInput{
+
+#otpInput {
     top: 50%;
     left: 50%;
     width: 500px;
-    height: 500px;
+    height: 350px;
     background: white;
     position: absolute;
+    padding: 24px;
+    font-size: x-large;
     transform: translate(-50%, -50%);
+}
+
+#otpResult {
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 130px;
+    background: white;
+    position: absolute;
+    padding: 24px;
+    font-size: x-large;
+    transform: translate(-50%, -50%);
+}
+
+#send-otp-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px
+}
+
+#submit-otp-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px
 }
